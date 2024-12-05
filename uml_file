@@ -1,0 +1,61 @@
+@startuml
+
+class GpuSpec {
+    -string model
+    -int memorySize
+    -int coreClock
+    +void Print()
+    +void Export(ofstream &ofs)
+    +void Import(ifstream &ifs)
+}
+
+class CpuSpec {
+    -string model
+    -int cores
+    -double clockSpeed
+    +void Print()
+    +void Export(ofstream &ofs)
+    +void Import(ifstream &ifs)
+}
+
+class RamSpec {
+    -int capacity
+    -int frequency
+    +void Print()
+    +void Export(ofstream &ofs)
+    +void Import(ifstream &ifs)
+}
+
+class LanSpec {
+    -int speed
+    -string type
+    +void Print()
+    +void Export(ofstream &ofs)
+    +void Import(ifstream &ifs)
+}
+
+class ClusterNode {
+    -GpuSpec gpu
+    -CpuSpec cpu
+    -RamSpec ram
+    -LanSpec lan
+    +void Print()
+    +void Export(ofstream &ofs)
+    +void Import(ifstream &ifs)
+}
+
+class Cluster {
+    -vector<ClusterNode> nodes
+    +void AddNode(const ClusterNode &node)
+    +void Print()
+    +void Export(const string &filename)
+    +void Import(const string &filename)
+}
+
+ClusterNode "1" *--> "1" GpuSpec
+ClusterNode "1" *--> "1" CpuSpec
+ClusterNode "1" *--> "1" RamSpec
+ClusterNode "1" *--> "1" LanSpec
+Cluster "1" *--> "*" ClusterNode
+
+@enduml
